@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="chatTemp">
+
+    <h2>{{tpl_room_name}}</h2>
+
+    <div class="chatBox">
+        <div class="chatMessage">
+            {% for chat in chat_list%}
+            {% if chat["user_id"] == "nanashi"%}
+            <p class="toText"><span>名無しさん:{{chat["message"]}}</span></p>            
+            {% elif tpl_my_id == chat["user_id"] %}
+            <p class="fromText"><span>{{chat["user_name"]}}:{{chat["message"]}}</span></p>
+            {% else %}
+            <p class="toText"><span>{{chat["user_name"]}}:{{chat["message"]}}</span></p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <form action="/open/{{link_openid}}" method="POST">
+            <input type="text" name="input_message" placeholder="メッセージを送信">
+            <input type="submit" value="送信">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

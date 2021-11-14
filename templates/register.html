@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+    {% if category == "mail_address" %}
+    <div class="alert is-danger is-sm">
+        <ul class="errorlist">
+            {{ message }}
+         </ul>
+    </div>
+    {% endif %}
+ {% endfor %}
+{% endwith %}
+<div class="login">
+    <div class="loginForm">
+        <h2>アカウント登録</h2>
+        <form action="/regist" method="POST">
+            {% if result != None %}
+            <p><input type="text" name="id"  value="{{result.id}}" placeholder="User_id"></p>
+            <p><input type="text" name="name" value="{{result.name}}" placeholder="Name"></p>
+            <p><input type="password" name="password" placeholder="Password"></p>
+            <p><input type="password" name="passveri" placeholder="確認用Password"></p>
+            <p><input type="text" name="mail_address" value="{{result.mail_address}}" placeholder="Mail address"></p>
+            <p><input type="submit" value="登録"></p>
+            {% else %}
+            <p><input type="text" name="id" placeholder="User_id"></p>
+            <p><input type="text" name="name" placeholder="Name"></p>
+            <p><input type="password" name="password" placeholder="Password"></p>
+            <p><input type="password" name="passveri" placeholder="確認用Password"></p>
+            <p><input type="text" name="mail_address" placeholder="Mail address"></p>
+            <p><input type="submit" value="登録"></p>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

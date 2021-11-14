@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login">
+    <div class="loginForm">
+        <form action="/login" method="POST">
+            <h2>ログイン</h2>
+            <p><input type="text" name="name" placeholder="Name"></p>
+            <p><input type="text" name="password" placeholder="Password"></p>
+            <p><input type="submit" value="ログイン"></p>
+        </form>
+        <a><input type="submit" onclick="location.href='/goregister'" value="新規登録"></a>
+        <a href="/forget_password">パスワードを忘れた</a>/<a href="/forget_ID">IDを忘れた</a>
+    </div>
+</div>
+
+
+{% endblock %}

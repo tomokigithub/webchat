@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>FlaskChatSample</title>
+</head>
+
+<body>
+    <header>
+        <div id="navArea">
+
+            <nav>
+              <div class="inner">
+                <ul>
+                    <li>
+                        {% if "user_id" in session %}
+                        <a href="/logout">ログアウト</a>
+                        {% else %}
+                        <a href="/login">ログイン</a>
+                        {% endif %}
+                    </li>
+                    <li><a href="/userlist">ユーザーリスト</a></li>
+                    <li><a href="/chatroom">チャットルーム</a></li>
+                    <li><a href="/openlist">オープンチャット</a></li>
+                </ul>
+              </div>
+            </nav>
+          
+            <div class="toggle_btn">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          
+            <div id="mask"></div>
+          
+        </div>
+
+        <div class="container">
+            <a href="/openlist">
+                <h1>Chat!!</h1>
+            </a>
+            <div class="menu">
+                {% if "user_id" in session %}
+                <p><a href="/logout">ログアウト</a></p>
+                {% else %}
+                <p><a href="/login">ログイン</a></p>
+                {% endif %}
+                <p><a href="/userlist">ユーザーリスト</a></p>
+                <p><a href="/chatroom">チャットルーム</a></p>
+                <p><a href="/openlist">オープンチャット</a></p>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--自作のJS-->
+    <script src="/static/css/webchat.js"></script>
+</body>
+
+
+</html>
+

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="roomTemp">
+    <h2>チャットルーム一覧</h2>
+    <div class="chatBox">
+    <div>
+        <form action="/makeopen" method="POST">
+            <input type="text" name="room" size="30" maxlength="30" value="ルームタイトル">
+            <input type="submit" value="部屋を作る">
+        </form>
+    </div>
+    </div>
+    <div class="roomList">
+        {% for open in tpl_open_list %}
+
+        <div class="roomCard" onclick="location.href='/open/{{open[0]}}'">
+            <p class="roomName">{{open[1]}}</p>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+
+
+
+{% endblock %}

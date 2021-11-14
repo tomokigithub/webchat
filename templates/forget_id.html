@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login">
+    <div class="loginForm">
+        <form action="/send_id" method="POST">
+            <h2>メールアドレスを入力してください</h2>
+            <p><input type="text" name="mail_address" placeholder="メールアドレス"></p>
+            <p><input type="submit" value="メールにIDを送信"></p>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
