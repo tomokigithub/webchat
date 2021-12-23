@@ -42,7 +42,6 @@ def chatroom_post(other_id):
     if "user_id" in session:
         # まずはチャットルームがあるかchatidをとってくる
         my_id = session["user_id"]
-        print(my_id)
         conn = sqlite3.connect('chattest.db')
         c = conn.cursor()
         c.execute(
@@ -125,12 +124,10 @@ def chat_post(chatid):
         c.execute(
             "select user_id1, user_id2 from chat where id = ?", (chatid,))
         chat_user = c.fetchone()
-        print(chat_user)
         if my_id != chat_user[0]:
             to_id = chat_user[0]
         else:
             to_id = chat_user[1]
-        print(to_id)
         c.execute("insert into chatmess values(null,?,?,?,?)",
                   (chatid, to_id, my_id, chat_message))
         conn.commit()
@@ -166,7 +163,6 @@ def openroom_make():
     c.execute("insert into open values(?,?)", (room_id, room_name))
     conn.commit()
     conn.close()
-    print(room_name)
     return render_template("openchat.html",link_openid=room_id, tpl_room_name=room_name)   
 
 
@@ -193,7 +189,6 @@ def open_get(openid):
     #部屋名を取得
     c.execute("select room from open where id = ?", (openid,))
     room_name = c.fetchone()[0]
-    print(room_name,chat_info)
     c.close()
     #チャットの内容、部屋のID、部屋名
     return render_template("openchat.html", chat_list=chat_info, link_openid=openid, tpl_room_name=room_name, tpl_my_id=my_id)
@@ -248,10 +243,9 @@ def login():
     conn = sqlite3.connect('chattest.db')
     c = conn.cursor()
     c.execute(
-        "select id from user where name = ? and password = ?", (name, hashpass))
+        "select id from user where id = ? and password = ?", (name, hashpass))
     user_id = c.fetchone()
     conn.close()
-    print(type(user_id))
     if user_id is None:
         return render_template("login.html")
     else:
@@ -288,7 +282,7 @@ def regist():
     conn = sqlite3.connect('chattest.db')
     c = conn.cursor()
     c.execute(
-        'select id from user where id = ?', (id))
+        'select id from user where id = ?', (user_id,))
     db_check = c.fetchone()
     conn.close()
 
@@ -326,13 +320,11 @@ def send_code():
     c.execute(
         'select mail_address from user where id = ?', (id,))
     mail_address = c.fetchone()
-    print(mail_address[0])
     conn.close()
     if mail_address is None:
         return render_template("forget_password.html")
     else:
         passcode = '%06d' % random.randint(0, 1000000)
-        print(passcode)
         # SMTP認証情報
         account = "rikepop.chattest@gmail.com"
         password = "fjiiiwjwkqasnsnp"
